@@ -54,6 +54,7 @@
 #include <asm/tlbflush.h>
 #include <asm/ptrace.h>
 #include <asm/virt.h>
+#include <soc/qcom/lpm_levels.h>
 #include <soc/qcom/minidump.h>
 
 #include <soc/qcom/lpm_levels.h>

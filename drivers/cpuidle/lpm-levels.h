@@ -60,6 +60,7 @@ struct lpm_cpu {
 	bool lpm_prediction;
 	bool ipi_prediction;
 	uint64_t bias;
+	bool ipi_prediction;
 	struct cpuidle_driver *drv;
 	struct lpm_cluster *parent;
 };

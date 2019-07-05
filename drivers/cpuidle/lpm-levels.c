@@ -474,6 +474,33 @@ static void biastimer_start(uint32_t time_ns)
 	hrtimer_start(cpu_biastimer, bias_ktime, HRTIMER_MODE_REL_PINNED);
 }
 
+{
+	unsigned int cpu = raw_smp_processor_id();
+	struct hrtimer *cpu_biastimer = &per_cpu(biastimer, cpu);
+	ktime_t time_rem;
+
+	time_rem = hrtimer_get_remaining(cpu_biastimer);
+	if (ktime_to_us(time_rem) <= 0)
+		return;
+
+	hrtimer_try_to_cancel(cpu_biastimer);
+}
+
+static enum hrtimer_restart biastimer_fn(struct hrtimer *h)
+{
+	return HRTIMER_NORESTART;
+}
+
+static void biastimer_start(uint32_t time_ns)
+{
+	ktime_t bias_ktime = ns_to_ktime(time_ns);
+	unsigned int cpu = raw_smp_processor_id();
+	struct hrtimer *cpu_biastimer = &per_cpu(biastimer, cpu);
+
+	cpu_biastimer->function = biastimer_fn;
+	hrtimer_start(cpu_biastimer, bias_ktime, HRTIMER_MODE_REL_PINNED);
+}
+
 static uint64_t find_deviation(int *interval, uint32_t ref_stddev,
 				int64_t *stime)
 {

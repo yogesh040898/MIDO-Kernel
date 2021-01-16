@@ -23,5 +23,4 @@ struct system_pm_ops {
 uint32_t register_system_pm_ops(struct system_pm_ops *pm_ops);
 void update_ipi_history(int cpu);
 void lpm_cluster_use_deepest_state(bool enable);
-void update_ipi_history(int cpu);
 #endif

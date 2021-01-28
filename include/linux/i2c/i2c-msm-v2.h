@@ -37,6 +37,7 @@ enum msm_i2_debug_level {
 #define MASK_IS_SET_BOOL(val, mask) (MASK_IS_SET(val, mask) ? 1 : 0)
 #define KHz(freq) (1000 * freq)
 #define I2C_MSM_CLK_FAST_PLUS_FREQ  (1000000)
+#define I2C_MSM_MAX_RETRIES 5
 
 /* QUP Registers */
 enum {
@@ -201,6 +202,7 @@ enum i2c_msm_power_state {
 #define I2C_MSM_MAX_POLL_MSEC           (100)
 #define I2C_MSM_TIMEOUT_SAFETY_COEF     (10)
 #define I2C_MSM_TIMEOUT_MIN_USEC        (500000)
+#define I2C_MSM_TIMEOUT_PM_RESUME_MSEC  (5000)
 #define I2C_QUP_MAX_BUS_RECOVERY_RETRY  (10)
 
 /* QUP v2 tags */

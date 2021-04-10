@@ -482,10 +482,10 @@ static unsigned int hxgov_next_freq_shared(struct hxgov_cpu *sg_cpu, u64 time)
 {
 	struct hxgov_policy *sg_policy = sg_cpu->sg_policy;
 	struct cpufreq_policy *policy = sg_policy->policy;
-	u64 last_freq_update_time = sg_policy->last_freq_update_time;
+	//u64 last_freq_update_time = sg_policy->last_freq_update_time;
 	unsigned long util = 0, max = 1;
-	unsigned int cap_max = SCHED_CAPACITY_SCALE;
-	unsigned int cap_min = 0;
+	//unsigned int cap_max = SCHED_CAPACITY_SCALE;
+	//unsigned int cap_min = 0;
 	unsigned int j;
 
 	/* Initialize clamping range based on caller CPU constraints */
@@ -494,7 +494,7 @@ static unsigned int hxgov_next_freq_shared(struct hxgov_cpu *sg_cpu, u64 time)
 	for_each_cpu(j, policy->cpus) {
 		struct hxgov_cpu *j_sg_cpu = &per_cpu(hxgov_cpu, j);
 		unsigned long j_util, j_max;
-		unsigned int j_cap_max, j_cap_min;
+		//unsigned int j_cap_max, j_cap_min;
 		s64 delta_ns;
 
 		/*

@@ -507,10 +507,10 @@ static unsigned int eugov_next_freq_shared(struct eugov_cpu *eg_cpu, u64 time)
 {
 	struct eugov_policy *eg_policy = eg_cpu->eg_policy;
 	struct cpufreq_policy *policy = eg_policy->policy;
-	u64 last_freq_update_time = eg_policy->last_freq_update_time;
+	//u64 last_freq_update_time = eg_policy->last_freq_update_time;
 	unsigned long util = 0, max = 1;
-	unsigned int cap_max = SCHED_CAPACITY_SCALE;
-	unsigned int cap_min = 0;
+	//unsigned int cap_max = SCHED_CAPACITY_SCALE;
+	//unsigned int cap_min = 0;
 	unsigned int j;
 
 	/* Initialize clamping range based on caller CPU constraints */
@@ -519,7 +519,7 @@ static unsigned int eugov_next_freq_shared(struct eugov_cpu *eg_cpu, u64 time)
 	for_each_cpu(j, policy->cpus) {
 		struct eugov_cpu *j_eg_cpu = &per_cpu(eugov_cpu, j);
 		unsigned long j_util, j_max;
-		unsigned int j_cap_max, j_cap_min;
+		//unsigned int j_cap_max, j_cap_min;
 		s64 delta_ns;
 
 		/*
@@ -770,7 +770,7 @@ static ssize_t silver_suspend_max_freq_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct eugov_tunables *tunables = to_eugov_tunables(attr_set);
-	struct eugov_policy *eg_policy;
+	//struct eugov_policy *eg_policy;
 	unsigned int max_freq;
 
 	if (kstrtouint(buf, 10, &max_freq))
@@ -795,7 +795,7 @@ static ssize_t gold_suspend_max_freq_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct eugov_tunables *tunables = to_eugov_tunables(attr_set);
-	struct eugov_policy *eg_policy;
+	//struct eugov_policy *eg_policy;
 	unsigned int max_freq;
 
 	if (kstrtouint(buf, 10, &max_freq))
@@ -820,7 +820,7 @@ static ssize_t suspend_capacity_factor_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct eugov_tunables *tunables = to_eugov_tunables(attr_set);
-	struct eugov_policy *eg_policy;
+	//struct eugov_policy *eg_policy;
 	unsigned int factor;
 
 	if (kstrtouint(buf, 10, &factor))

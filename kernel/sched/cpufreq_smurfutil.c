@@ -38,7 +38,7 @@
 
 #define SMUGOV_KTHREAD_PRIORITY	25
 
-static unsigned int hispeed_freq_restore;
+//static unsigned int hispeed_freq_restore;
 
 struct smugov_tunables {
 	struct gov_attr_set attr_set;
@@ -187,6 +187,7 @@ static unsigned int get_next_freq(struct smugov_policy *sg_policy,
 	unsigned int freq = arch_scale_freq_invariant() ?
 				policy->cpuinfo.max_freq : policy->cur;
 	unsigned int capacity_factor, silver_max_freq, gold_max_freq;
+	unsigned long load;
 
 	if(state_suspended) {
 		capacity_factor = sg_policy->tunables->suspend_capacity_factor;
@@ -195,7 +196,7 @@ static unsigned int get_next_freq(struct smugov_policy *sg_policy,
 		max = max * (capacity_factor + 1) / capacity_factor;
 	}
 
-	unsigned long load = 100 * util / max;
+	 load = 100 * util / max;
 	
 	if(load < tunables->target_load1){
 		freq = (freq + (freq >> tunables->bit_shift1)) * util / max;
@@ -522,10 +523,10 @@ static unsigned int smugov_next_freq_shared(struct smugov_cpu *sg_cpu, u64 time)
 {
 	struct smugov_policy *sg_policy = sg_cpu->sg_policy;
 	struct cpufreq_policy *policy = sg_policy->policy;
-	u64 last_freq_update_time = sg_policy->last_freq_update_time;
+	//u64 last_freq_update_time = sg_policy->last_freq_update_time;
 	unsigned long util = 0, max = 1;
-	unsigned int cap_max = SCHED_CAPACITY_SCALE;
-	unsigned int cap_min = 0;
+	//unsigned int cap_max = SCHED_CAPACITY_SCALE;
+	//unsigned int cap_min = 0;
 	unsigned int j;
 
 	/* Initialize clamping range based on caller CPU constraints */
@@ -534,7 +535,7 @@ static unsigned int smugov_next_freq_shared(struct smugov_cpu *sg_cpu, u64 time)
 	for_each_cpu(j, policy->cpus) {
 		struct smugov_cpu *j_sg_cpu = &per_cpu(smugov_cpu, j);
 		unsigned long j_util, j_max;
-		unsigned int j_cap_max, j_cap_min;
+		//unsigned int j_cap_max, j_cap_min;
 		s64 delta_ns;
 
 		/*
@@ -800,7 +801,7 @@ static ssize_t silver_suspend_max_freq_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct smugov_tunables *tunables = to_smugov_tunables(attr_set);
-	struct smugov_policy *sg_policy;
+	//struct smugov_policy *sg_policy;
 	unsigned int max_freq;
 
 	if (kstrtouint(buf, 10, &max_freq))
@@ -822,7 +823,7 @@ static ssize_t gold_suspend_max_freq_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct smugov_tunables *tunables = to_smugov_tunables(attr_set);
-	struct smugov_policy *sg_policy;
+	//struct smugov_policy *sg_policy;
 	unsigned int max_freq;
 
 	if (kstrtouint(buf, 10, &max_freq))
@@ -844,7 +845,7 @@ static ssize_t suspend_capacity_factor_store(struct gov_attr_set *attr_set,
 				      const char *buf, size_t count)
 {
 	struct smugov_tunables *tunables = to_smugov_tunables(attr_set);
-	struct smugov_policy *sg_policy;
+	//struct smugov_policy *sg_policy;
 	unsigned int factor;
 
 	if (kstrtouint(buf, 10, &factor))
